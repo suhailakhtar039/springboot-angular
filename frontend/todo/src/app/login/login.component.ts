@@ -13,5 +13,6 @@ export class LoginComponent {
   password = 'abc';
   handleLogin() {
     console.log(this.username);
+    console.log(this.password);
   }
 }
