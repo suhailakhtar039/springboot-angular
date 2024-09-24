@@ -1,4 +1,4 @@
-<small>{{ errorMessage }}</small>
+<small *ngIf="invalidLogin">{{ errorMessage }}</small>
 <div>
   User name:
   <input type="username" name="username" [(ngModel)]="username" />

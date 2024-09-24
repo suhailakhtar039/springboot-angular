@@ -13,8 +13,15 @@ export class LoginComponent {
   username = 'suhail';
   password = 'abc';
   errorMessage = 'invalid credentials';
+  invalidLogin = false;
+
   handleLogin() {
     console.log(this.username);
     console.log(this.password);
+    if (this.username === 'suhail' && this.password === 'abc') {
+      this.invalidLogin = false;
+    } else {
+      this.invalidLogin = true;
+    }
   }
 }
