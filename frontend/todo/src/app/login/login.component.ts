@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 export class LoginComponent {
   username = 'suhail';
   password = 'abc';
+  errorMessage = 'invalid credentials';
   handleLogin() {
     console.log(this.username);
     console.log(this.password);
