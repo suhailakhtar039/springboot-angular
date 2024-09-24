@@ -5,8 +5,12 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrl: './login.component.css',
 })
 export class LoginComponent {
-
+  username = 'suhail';
+  password = 'abc';
+  handleLogin() {
+    console.log('clicked');
+  }
 }

@@ -1,2 +1,5 @@
-User name: <input type="username" name="username" /> Password:
-<input type="password" name="password" />
+User name:
+<input type="username" name="username" value="{{ username }}" />
+Password:
+<input type="password" name="password" value="{{ password }}" />
+<button (click)="handleLogin()">Login</button>
