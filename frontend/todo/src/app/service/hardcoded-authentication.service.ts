@@ -1,9 +1,15 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HardcodedAuthenticationService {
+  constructor() {}
 
-  constructor() { }
+  authenticate(username: string, password: string) {
+    if (username === 'suhail' && password === 'abc') {
+      return true;
+    }
+    return false;
+  }
 }
