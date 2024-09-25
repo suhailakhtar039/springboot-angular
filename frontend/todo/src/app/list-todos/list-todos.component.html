@@ -9,7 +9,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
+    <tr *ngFor="let todo of todos">
       <td>{{ todo.id }}</td>
       <td>{{ todo.description }}</td>
     </tr>

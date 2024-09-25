@@ -9,8 +9,9 @@ import { Component } from '@angular/core';
   styleUrl: './list-todos.component.css',
 })
 export class ListTodosComponent {
-  todo = {
-    id: 1,
-    description: 'Learn to Dance',
-  };
+  todos = [
+    { id: 1, description: 'Learn to Dance' },
+    { id: 2, description: 'Become expert in angular' },
+    { id: 3, description: 'Visit India' },
+  ];
 }
