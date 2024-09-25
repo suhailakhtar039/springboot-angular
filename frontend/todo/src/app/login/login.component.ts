@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   username = 'suhail';
-  password = 'abc';
+  password = '';
   errorMessage = 'invalid credentials';
   invalidLogin = false;
 
