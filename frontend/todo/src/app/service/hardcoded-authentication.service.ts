@@ -17,7 +17,7 @@ export class HardcodedAuthenticationService {
 
   isUserLoggedIn() {
     if (isPlatformBrowser(this._platformId)) {
-      console.log('Before session');
+      // console.log('Before session');
       const user = sessionStorage.getItem('authenticatedUser');
 
       return !(user == null);
