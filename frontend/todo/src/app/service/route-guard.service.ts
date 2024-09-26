@@ -4,6 +4,7 @@ import {
   CanActivate,
   GuardResult,
   MaybeAsync,
+  Router,
   RouterStateSnapshot,
 } from '@angular/router';
 import { HardcodedAuthenticationService } from './hardcoded-authentication.service';
@@ -13,7 +14,8 @@ import { HardcodedAuthenticationService } from './hardcoded-authentication.servi
 })
 export class RouteGuardService implements CanActivate {
   constructor(
-    private hardCodedAuthenticationService: HardcodedAuthenticationService
+    private hardCodedAuthenticationService: HardcodedAuthenticationService,
+    private router: Router
   ) {}
 
   canActivate(
@@ -21,6 +23,8 @@ export class RouteGuardService implements CanActivate {
     state: RouterStateSnapshot
   ): MaybeAsync<GuardResult> {
     if (this.hardCodedAuthenticationService.isUserLoggedIn()) return true;
+
+    this.router.navigate(['login']);
     return false;
   }
 }
