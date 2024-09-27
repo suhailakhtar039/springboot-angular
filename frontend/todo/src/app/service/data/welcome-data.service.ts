@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class WelcomeDataService {
+  constructor() {}
 
-  constructor() { }
+  executeHelloWorldBeanService() {
+    console.log('Execute hello world bean service');
+  }
 }
