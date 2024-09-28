@@ -15,4 +15,11 @@ export class WelcomeDataService {
       'http://localhost:8080/hello-world-bean'
     );
   }
+
+  // http://localhost:8080/hello-world-bean/akhtar
+  executeHelloWorldServiceWithPathVariable(name: string) {
+    return this.http.get<HelloWorldBean>(
+      `http://localhost:8080/hello-world-bean/${name}`
+    );
+  }
 }
