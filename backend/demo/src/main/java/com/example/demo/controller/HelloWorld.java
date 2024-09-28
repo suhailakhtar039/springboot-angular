@@ -22,6 +22,6 @@ public class HelloWorld {
 
     @GetMapping("/hello-world-bean/{name}")
     public HelloWorldBean helloWorldBean(@PathVariable String name) {
-        return new HelloWorldBean("Hello from bean " + name);
+        return new HelloWorldBean("You are inside the 2nd function with path variable " + name);
     }
 }
