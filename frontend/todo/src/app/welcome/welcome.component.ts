@@ -16,6 +16,7 @@ import {
 export class WelcomeComponent implements OnInit {
   message = 'some welcome message';
   name = '';
+  customizedWelcomeMessage: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -34,11 +35,10 @@ export class WelcomeComponent implements OnInit {
     this.service.executeHelloWorldBeanService().subscribe((response) => {
       this.handleSuccessfulResponse(response);
     });
-    console.log('last line of code');
+    // console.log('last line of code');
   }
 
   handleSuccessfulResponse(response: HelloWorldBean) {
-    console.log(response);
-    console.log(response.message);
+    this.customizedWelcomeMessage = response.message;
   }
 }

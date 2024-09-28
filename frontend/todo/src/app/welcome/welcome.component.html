@@ -9,3 +9,8 @@
     Get Welcome Message
   </button>
 </div>
+
+<div class="container" *ngIf="customizedWelcomeMessage.length != 0">
+  <h2>Your customized welcome message</h2>
+  {{ customizedWelcomeMessage }}
+</div>
