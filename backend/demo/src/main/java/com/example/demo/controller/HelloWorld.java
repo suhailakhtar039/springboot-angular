@@ -17,7 +17,7 @@ public class HelloWorld {
 
     @GetMapping("/hello-world-bean")
     public HelloWorldBean helloWorldBean() {
-        return new HelloWorldBean("Hello from bean");
+        return new HelloWorldBean("Hello from bean testing");
     }
 
     @GetMapping("/hello-world-bean/{name}")
