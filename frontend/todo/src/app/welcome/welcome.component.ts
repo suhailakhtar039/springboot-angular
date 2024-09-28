@@ -1,7 +1,10 @@
 import { NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { WelcomeDataService } from '../service/data/welcome-data.service';
+import {
+  HelloWorldBean,
+  WelcomeDataService,
+} from '../service/data/welcome-data.service';
 
 @Component({
   selector: 'app-welcome',
@@ -34,7 +37,8 @@ export class WelcomeComponent implements OnInit {
     console.log('last line of code');
   }
 
-  handleSuccessfulResponse(response: any) {
+  handleSuccessfulResponse(response: HelloWorldBean) {
     console.log(response);
+    console.log(response.message);
   }
 }
