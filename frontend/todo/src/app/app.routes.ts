@@ -5,6 +5,7 @@ import { ErrorComponent } from './error/error.component';
 import { ListTodosComponent } from './list-todos/list-todos.component';
 import { LogoutComponent } from './logout/logout.component';
 import { RouteGuardService } from './service/route-guard.service';
+import { TodoComponent } from './todo/todo.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -22,6 +23,11 @@ export const routes: Routes = [
   {
     path: 'logout',
     component: LogoutComponent,
+    canActivate: [RouteGuardService],
+  },
+  {
+    path: 'todos/:id',
+    component: TodoComponent,
     canActivate: [RouteGuardService],
   },
   { path: '**', component: ErrorComponent },
