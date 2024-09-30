@@ -41,4 +41,8 @@ export class ListTodosComponent implements OnInit {
       }
     );
   }
+
+  deleteTodo() {
+    console.log('Delete todo invoked');
+  }
 }
