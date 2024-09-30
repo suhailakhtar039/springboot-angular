@@ -19,7 +19,8 @@
       type="date"
       class="form-control"
       name="targetDate"
-      [(ngModel)]="todo.targetDate"
+      [ngModel]="todo.targetDate | date : 'yyyy-MM-dd'"
+      (ngModelChange)="todo.targetDate = $event"
       id="targetDate"
       required
     />
