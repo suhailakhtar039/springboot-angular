@@ -57,14 +57,18 @@ export class ListTodosComponent implements OnInit {
   }
 
   deleteTodo(id: number) {
-    console.log('this todo ' + id);
+    // console.log('this todo ' + id);
     this.todoService.deleteTodo('suhail akhtar', id).subscribe((response) => {
-      console.log('within the subscribe');
-      console.log(response);
+      // console.log('within the subscribe');
+      // console.log(response);
       this.message = `Delete of todo ${id} successful`;
       this.refreshTodos();
     });
 
-    console.log(`Delete todo invoked having id ${id}`);
+    // console.log(`Delete todo invoked having id ${id}`);
+  }
+
+  updateTodo(id: number) {
+    // console.log('update todo clicked!');
   }
 }
