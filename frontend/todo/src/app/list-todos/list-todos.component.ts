@@ -42,7 +42,7 @@ export class ListTodosComponent implements OnInit {
     );
   }
 
-  deleteTodo() {
-    console.log('Delete todo invoked');
+  deleteTodo(id: number) {
+    console.log(`Delete todo invoked having id ${id}`);
   }
 }
