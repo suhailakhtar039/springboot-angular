@@ -44,12 +44,25 @@ export class ListTodosComponent implements OnInit {
     );
   }
 
+  refreshTodos() {
+    this.todoService.retrieveAllTodos('suhail-from-list-todos').subscribe(
+      (response) => {
+        // console.log(response);
+        this.todos = response;
+      },
+      (err) => {
+        console.log('in error in list todos');
+      }
+    );
+  }
+
   deleteTodo(id: number) {
     console.log('this todo ' + id);
     this.todoService.deleteTodo('suhail akhtar', id).subscribe((response) => {
       console.log('within the subscribe');
       console.log(response);
       this.message = `Delete of todo ${id} successful`;
+      this.refreshTodos();
     });
 
     console.log(`Delete todo invoked having id ${id}`);
