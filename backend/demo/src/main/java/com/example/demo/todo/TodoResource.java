@@ -1,6 +1,7 @@
 package com.example.demo.todo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,9 +31,21 @@ public class TodoResource {
 
     }
 
+
+    // GET mapping for a particular id
     @GetMapping("/users/{username}/todos/{id}")
     public Todo getTodo(@PathVariable String username, @PathVariable long id){
         return todoService.findById(id);
     }
 
-}
+
+    //PUT mapping
+    @PutMapping("/users/{username}/todos/{id}")
+    public ResponseEntity<Todo> updateTodo(@PathVariable String username,
+                                           @PathVariable long id, @RequestBody Todo todo) {
+        Todo updatedTodo = todoService.save(todo);
+
+        return new ResponseEntity<Todo>(todo, HttpStatus.OK);
+    }
+
+    }
