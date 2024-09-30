@@ -20,6 +20,8 @@ export class Todo {
 })
 export class ListTodosComponent implements OnInit {
   todos: Todo[] = [];
+  message: string = '';
+
   // [
   //   new Todo(1, 'Learn to dance', false, new Date()),
   //   new Todo(2, 'Become expert in angular', false, new Date()),
@@ -43,6 +45,13 @@ export class ListTodosComponent implements OnInit {
   }
 
   deleteTodo(id: number) {
+    console.log('this todo ' + id);
+    this.todoService.deleteTodo('suhail akhtar', id).subscribe((response) => {
+      console.log('within the subscribe');
+      console.log(response);
+      this.message = `Delete of todo ${id} successful`;
+    });
+
     console.log(`Delete todo invoked having id ${id}`);
   }
 }

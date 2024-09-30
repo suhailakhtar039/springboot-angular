@@ -1,4 +1,9 @@
 <h1>My TODOs</h1>
+
+<div class="alert alert-success" *ngIf="message != null && message.length != 0">
+  {{ message }}
+</div>
+
 <div class="cotainer">
   <table class="table">
     <thead>
