@@ -1,12 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { TodoDataService } from '../service/data/todo-data.service';
+import { Todo } from '../list-todos/list-todos.component';
+import { ActivatedRoute } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-todo',
   standalone: true,
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './todo.component.html',
-  styleUrl: './todo.component.css'
+  styleUrl: './todo.component.css',
 })
-export class TodoComponent {
+export class TodoComponent implements OnInit {
+  id!: number;
+  todo!: Todo;
 
+  constructor(
+    private todoService: TodoDataService,
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit(): void {
+    this.id = this.route.snapshot.params['id'];
+    this.todoService.retrieveTodo('suhail', this.id).subscribe((response) => {
+      this.todo = response;
+      console.log(response);
+    });
+  }
+
+  saveTodo() {
+    throw new Error('Method not implemented.');
+  }
 }

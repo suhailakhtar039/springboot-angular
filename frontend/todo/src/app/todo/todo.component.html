@@ -8,6 +8,7 @@
       class="form-control"
       name="description"
       id="description"
+      [(ngModel)]="todo.description"
       required
     />
   </fieldset>
@@ -18,10 +19,11 @@
       type="date"
       class="form-control"
       name="targetDate"
+      [(ngModel)]="todo.targetDate"
       id="targetDate"
       required
     />
   </fieldset>
 
-  <!-- <button class="btn btn-success" (click)="saveTodo()">Save</button> -->
+  <button class="btn btn-success" (click)="saveTodo()">Save</button>
 </div>
