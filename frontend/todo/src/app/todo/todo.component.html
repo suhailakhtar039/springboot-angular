@@ -1,7 +1,27 @@
 <h1>Todo</h1>
 
 <div class="container">
-  <input type="text" class="form-control" name="description" required />
+  <fieldset class="form-group">
+    <label for="description">Description</label>
+    <input
+      type="text"
+      class="form-control"
+      name="description"
+      id="description"
+      required
+    />
+  </fieldset>
 
-  <input type="date" class="form-control" name="targetDate" required />
+  <fieldset class="form-group">
+    <label for="targetDate">Target Date</label>
+    <input
+      type="date"
+      class="form-control"
+      name="targetDate"
+      id="targetDate"
+      required
+    />
+  </fieldset>
+
+  <!-- <button class="btn btn-success" (click)="saveTodo()">Save</button> -->
 </div>
