@@ -69,6 +69,6 @@ export class ListTodosComponent implements OnInit {
   }
 
   updateTodo(id: number) {
-    // console.log('update todo clicked!');
+    console.log(`update ${id}`);
   }
 }
