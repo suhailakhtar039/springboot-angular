@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoDataService } from '../service/data/todo-data.service';
 import { Todo } from '../list-todos/list-todos.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 
@@ -18,7 +18,8 @@ export class TodoComponent implements OnInit {
 
   constructor(
     private todoService: TodoDataService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -31,6 +32,11 @@ export class TodoComponent implements OnInit {
   }
 
   saveTodo() {
-    throw new Error('Method not implemented.');
+    this.todoService
+      .updateTodo('suhail', this.id, this.todo)
+      .subscribe((data) => {
+        // console.log(data);
+        this.router.navigate(['todos']);
+      });
   }
 }
