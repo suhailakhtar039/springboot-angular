@@ -22,4 +22,9 @@ export class WelcomeDataService {
       `http://localhost:8080/hello-world-bean/${name}`
     );
   }
+
+  createBasicAuthenticationHttpHeader() {
+    let username = 'user';
+    let password = 'password';
+  }
 }
