@@ -3,12 +3,12 @@ import { TodoDataService } from '../service/data/todo-data.service';
 import { Todo } from '../list-todos/list-todos.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { DatePipe } from '@angular/common';
+import { DatePipe, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-todo',
   standalone: true,
-  imports: [FormsModule, DatePipe],
+  imports: [FormsModule, DatePipe, NgIf],
   templateUrl: './todo.component.html',
   styleUrl: './todo.component.css',
 })
