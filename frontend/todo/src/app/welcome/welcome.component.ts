@@ -42,22 +42,14 @@ export class WelcomeComponent implements OnInit {
     // console.log('last line of code');
   }
 
-  getWelcomeMessageWithPathParameter(name: string) {
+  getWelcomeMessageWithPathParameter() {
     // console.log(this.service.executeHelloWorldBeanService());
-    console.log(this.customizedWelcomeMessage);
+    console.log(this.name);
     this.service.executeHelloWorldServiceWithPathVariable(this.name).subscribe(
-      (response) => {
-        console.log('in response');
-        console.log(response);
-        this.handleSuccessfulResponse(response);
-      },
-      (error) => {
-        console.log('in error');
-        console.log(error);
-        this.errroHandleResponse(error);
-      }
+      (response) => this.handleSuccessfulResponse(response),
+      (error) => this.errroHandleResponse(error)
     );
-    console.log('last line of code');
+    // console.log('last line of code');
   }
 
   handleSuccessfulResponse(response: HelloWorldBean) {
@@ -65,6 +57,7 @@ export class WelcomeComponent implements OnInit {
     this.customizedWelcomeMessage = response.message;
   }
   errroHandleResponse(error: any) {
+    console.log('in the error');
     this.customizedWelcomeMessage = error.error.text;
   }
 }
