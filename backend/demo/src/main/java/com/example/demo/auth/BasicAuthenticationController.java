@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin("http://localhost:4200/")
 @RestController
-public class HelloWorld {
+public class BasicAuthenticationController {
 
 
     @GetMapping("/basicauth")
