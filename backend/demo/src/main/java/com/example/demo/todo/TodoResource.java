@@ -9,7 +9,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin("http://localhost:4200/")
 @RestController
 public class TodoResource {
 
@@ -64,6 +64,11 @@ public class TodoResource {
                 .toUri();
 
         return ResponseEntity.created(uri).build();
+    }
+
+    @GetMapping("/hello-world/{name}")
+    public String helloWorld(@PathVariable String name) {
+        return "Hello World v1 from " + name + " from intellij";
     }
 
 }
