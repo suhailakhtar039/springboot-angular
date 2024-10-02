@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { map } from 'rxjs';
 
+export const TOKEN = 'token';
+export const AUTHENTICATED_USER = 'authenticatedUser';
 @Injectable({
   providedIn: 'root',
 })
