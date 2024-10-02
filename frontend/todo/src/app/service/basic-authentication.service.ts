@@ -2,6 +2,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { map } from 'rxjs';
+import { API_URL } from '../app.constants';
 
 export const TOKEN = 'token';
 export const AUTHENTICATED_USER = 'authenticatedUser';
@@ -23,23 +24,23 @@ export class BasicAuthenticationService {
     });
 
     return this.http
-      .get<AuthenticationBean>(`http://localhost:8080/basicauth`, { headers })
+      .get<AuthenticationBean>(`${API_URL}/basicauth`, { headers })
       .pipe(
         map((data) => {
-          sessionStorage.setItem('authenticatedUser', username);
-          sessionStorage.setItem('token', basicAuthHeaderString);
+          sessionStorage.setItem(AUTHENTICATED_USER, username);
+          sessionStorage.setItem(TOKEN, basicAuthHeaderString);
           return data;
         })
       );
   }
 
   getAuthenticatedUser() {
-    return sessionStorage.getItem('authenticatedUser');
+    return sessionStorage.getItem(AUTHENTICATED_USER);
   }
 
   getAuthenticatedToken(): string | null | undefined {
     if (this.getAuthenticatedUser()) {
-      return sessionStorage.getItem('token');
+      return sessionStorage.getItem(TOKEN);
     }
     return 'no_token';
   }
@@ -47,7 +48,7 @@ export class BasicAuthenticationService {
   isUserLoggedIn() {
     if (isPlatformBrowser(this._platformId)) {
       // console.log('Before session');
-      const user = sessionStorage.getItem('authenticatedUser');
+      const user = sessionStorage.getItem(AUTHENTICATED_USER);
 
       return !(user == null);
     }
@@ -55,8 +56,8 @@ export class BasicAuthenticationService {
   }
 
   logout() {
-    sessionStorage.removeItem('authenticatedUser');
-    sessionStorage.removeItem('token');
+    sessionStorage.removeItem(AUTHENTICATED_USER);
+    sessionStorage.removeItem(TOKEN);
   }
 }
 
