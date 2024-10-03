@@ -11,18 +11,18 @@ import java.util.List;
 
 @CrossOrigin("http://localhost:4200/")
 @RestController
-public class TodoResource {
+public class TodoJpaResource {
 
     @Autowired
     private TodoHardcodedService todoService;
 
-    @GetMapping("/users/{username}/todos")
+    @GetMapping("/jpa/users/{username}/todos")
     public List<Todo> getAllTodos(@PathVariable String username) {
         return todoService.findAll();
     }
 
     // DELETE mapping
-    @DeleteMapping("/users/{username}/todos/{id}")
+    @DeleteMapping("/jpa/users/{username}/todos/{id}")
     public ResponseEntity<Void> deleteTodo(@PathVariable String username, @PathVariable long id) {
         Todo todo = todoService.deleteById(id);
 
@@ -35,14 +35,14 @@ public class TodoResource {
 
 
     // GET mapping for a particular id
-    @GetMapping("/users/{username}/todos/{id}")
+    @GetMapping("/jpa/users/{username}/todos/{id}")
     public Todo getTodo(@PathVariable String username, @PathVariable long id) {
         return todoService.findById(id);
     }
 
 
     // PUT mapping
-    @PutMapping("/users/{username}/todos/{id}")
+    @PutMapping("/jpa/users/{username}/todos/{id}")
     public ResponseEntity<Todo> updateTodo(@PathVariable String username,
                                            @PathVariable long id, @RequestBody Todo todo) {
         Todo updatedTodo = todoService.save(todo);
@@ -50,7 +50,7 @@ public class TodoResource {
         return new ResponseEntity<Todo>(todo, HttpStatus.OK);
     }
 
-    @PostMapping("/users/{username}/todos")
+    @PostMapping("/jpa/users/{username}/todos")
     public ResponseEntity<Void> createTodo(
             @PathVariable String username,
             @RequestBody Todo todo) {
@@ -66,7 +66,7 @@ public class TodoResource {
         return ResponseEntity.created(uri).build();
     }
 
-    @GetMapping("/hello-world/{name}")
+    @GetMapping("/jpa/hello-world/{name}")
     public String helloWorld(@PathVariable String name) {
         return "Hello World v1 from " + name + " from intellij";
     }
