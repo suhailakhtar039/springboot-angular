@@ -1,4 +1,4 @@
-package com.example.demo.auth;
+package auth;
 
 import com.example.demo.controller.AuthenticationBean;
 import org.springframework.web.bind.annotation.CrossOrigin;

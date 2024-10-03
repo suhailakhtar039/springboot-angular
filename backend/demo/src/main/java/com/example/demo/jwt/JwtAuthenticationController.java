@@ -9,25 +9,29 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin("http://localhost:4200")
-public class JwtAuthenticationRestController {
+@CrossOrigin(origins="http://localhost:4200")
+public class JwtAuthenticationController {
     private final JwtTokenService tokenService;
 
     private final AuthenticationManager authenticationManager;
 
-    public JwtAuthenticationRestController(JwtTokenService tokenService,
-                                           AuthenticationManager authenticationManager) {
+    public JwtAuthenticationController(JwtTokenService tokenService,
+                                       AuthenticationManager authenticationManager) {
         this.tokenService = tokenService;
         this.authenticationManager = authenticationManager;
     }
 
-    @PostMapping("${jwt.get.token.uri}")
+    @PostMapping("/authenticate")
     public ResponseEntity<JwtTokenResponse> generateToken(
             @RequestBody JwtTokenRequest jwtTokenRequest) {
 
-        var authenticationToken = new UsernamePasswordAuthenticationToken(jwtTokenRequest.username(), jwtTokenRequest.password());
+        var authenticationToken =
+                new UsernamePasswordAuthenticationToken(
+                        jwtTokenRequest.username(),
+                        jwtTokenRequest.password());
 
-        var authentication = authenticationManager.authenticate(authenticationToken);
+        var authentication =
+                authenticationManager.authenticate(authenticationToken);
 
         var token = tokenService.generateToken(authentication);
 
