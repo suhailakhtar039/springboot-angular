@@ -15,6 +15,20 @@ export class BasicAuthenticationService {
     private http: HttpClient
   ) {}
 
+  executeJWTAuthenticationService(username: string, password: string) {
+    console.log('start JWT auth');
+    return this.http
+      .post<any>(`${API_URL}/authenticate`, { username, password })
+      .pipe(
+        map((data) => {
+          console.log('setting token and bearer');
+          sessionStorage.setItem(AUTHENTICATED_USER, username);
+          sessionStorage.setItem(TOKEN, `Bearer ${data.token}`);
+          return data;
+        })
+      );
+  }
+
   // http://localhost:8080/hello-world-bean/akhtar
   executeHelloWorldServiceWithPathVariable(username: string, password: string) {
     let basicAuthHeaderString =

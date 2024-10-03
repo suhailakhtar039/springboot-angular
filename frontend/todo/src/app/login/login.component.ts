@@ -13,7 +13,7 @@ import { BasicAuthenticationService } from '../service/basic-authentication.serv
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  username = 'suhail';
+  username = 'in28minutes';
   password = '';
   errorMessage = 'invalid credentials';
   invalidLogin = false;
@@ -41,6 +41,22 @@ export class LoginComponent {
   handleBasicAuthLogin() {
     this.basicAuthenticationService
       .executeHelloWorldServiceWithPathVariable(this.username, this.password)
+      .subscribe(
+        (data) => {
+          console.log(data);
+          this.router.navigate(['welcome', this.username]);
+          this.invalidLogin = false;
+        },
+        (error) => {
+          console.log(error);
+          this.invalidLogin = true;
+        }
+      );
+  }
+
+  handleJWTAuthLogin() {
+    this.basicAuthenticationService
+      .executeJWTAuthenticationService(this.username, this.password)
       .subscribe(
         (data) => {
           console.log(data);
