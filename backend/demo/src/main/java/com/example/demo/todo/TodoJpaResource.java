@@ -16,9 +16,13 @@ public class TodoJpaResource {
     @Autowired
     private TodoHardcodedService todoService;
 
+    @Autowired
+    private TodoJpaRepository todoJpaRepository;
+
     @GetMapping("/jpa/users/{username}/todos")
     public List<Todo> getAllTodos(@PathVariable String username) {
-        return todoService.findAll();
+        return todoJpaRepository.findByUsername(username);
+        // return todoService.findAll();
     }
 
     // DELETE mapping
@@ -37,9 +41,9 @@ public class TodoJpaResource {
     // GET mapping for a particular id
     @GetMapping("/jpa/users/{username}/todos/{id}")
     public Todo getTodo(@PathVariable String username, @PathVariable long id) {
-        return todoService.findById(id);
+        return todoJpaRepository.findById(id).get();
+        // return todoService.findById(id);
     }
-
 
     // PUT mapping
     @PutMapping("/jpa/users/{username}/todos/{id}")
