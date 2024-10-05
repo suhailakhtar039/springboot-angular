@@ -1,7 +1,7 @@
-import { DatePipe, NgFor, NgIf, UpperCasePipe } from '@angular/common';
+import { TodoDataService } from './../service/data/todo-data.service';
 import { Component, OnInit } from '@angular/core';
-import { TodoDataService } from '../service/data/todo-data.service';
 import { Router } from '@angular/router';
+import { NgIf, NgFor, UpperCasePipe, DatePipe } from '@angular/common';
 
 export class Todo {
   constructor(
@@ -14,59 +14,50 @@ export class Todo {
 
 @Component({
   selector: 'app-list-todos',
+  templateUrl: './list-todos.component.html',
+  styleUrls: ['./list-todos.component.css'],
   standalone: true,
   imports: [NgIf, NgFor, UpperCasePipe, DatePipe],
-  templateUrl: './list-todos.component.html',
-  styleUrl: './list-todos.component.css',
 })
 export class ListTodosComponent implements OnInit {
   todos: Todo[] = [];
+
   message: string = '';
 
-  // [
-  //   new Todo(1, 'Learn to dance', false, new Date()),
-  //   new Todo(2, 'Become expert in angular', false, new Date()),
-  //   new Todo(3, 'Visit India', false, new Date()),
-  //   // { id: 1, description: 'Learn to Dance' },
-  //   // { id: 2, description: 'Become expert in angular' },
-  //   // { id: 3, description: 'Visit India' },
-  // ];
+  // = [
+  //   new Todo(1, 'Learn to Dance', false, new Date()),
+  //   new Todo(2, 'Become an Expert at Angular', false, new Date()),
+  //   new Todo(3, 'Visit India', false, new Date())
+  //   // {id : 1, description : },
+  //   // {id : 2, description : ''},
+  //   // {id : 3, description : 'Visit India'}
+  // ]
+
+  // todo = {
+  //     id : 1,
+  //     description: 'Learn to Dance'
+  // }
 
   constructor(private todoService: TodoDataService, private router: Router) {}
-  ngOnInit(): void {
-    this.todoService.retrieveAllTodos('suhail-from-list-todos').subscribe(
-      (response) => {
-        // console.log(response);
-        this.todos = response;
-      },
-      (err) => {
-        console.log('in error in list todos');
-      }
-    );
+
+  ngOnInit() {
+    this.refreshTodos();
   }
 
   refreshTodos() {
-    this.todoService.retrieveAllTodos('suhail-from-list-todos').subscribe(
-      (response) => {
-        // console.log(response);
-        this.todos = response;
-      },
-      (err) => {
-        console.log('in error in list todos');
-      }
-    );
+    this.todoService.retrieveAllTodos('in28minutes').subscribe((response) => {
+      console.log(response);
+      this.todos = response;
+    });
   }
 
   deleteTodo(id: number) {
-    // console.log('this todo ' + id);
-    this.todoService.deleteTodo('suhail akhtar', id).subscribe((response) => {
-      // console.log('within the subscribe');
-      // console.log(response);
-      this.message = `Delete of todo ${id} successful`;
+    console.log(`delete todo ${id}`);
+    this.todoService.deleteTodo('in28minutes', id).subscribe((response) => {
+      console.log(response);
+      this.message = `Delete of Todo ${id} Successful!`;
       this.refreshTodos();
     });
-
-    // console.log(`Delete todo invoked having id ${id}`);
   }
 
   updateTodo(id: number) {
