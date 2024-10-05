@@ -11,66 +11,62 @@ import java.util.List;
 
 @CrossOrigin("http://localhost:4200/")
 @RestController
-public class TodoJpaResource {
+public class TodoResource {
 
     @Autowired
     private TodoHardcodedService todoService;
 
-    @Autowired
-    private TodoJpaRepository todoJpaRepository;
-
-    @GetMapping("/jpa/users/{username}/todos")
+    @GetMapping("/users/{username}/todos")
     public List<Todo> getAllTodos(@PathVariable String username) {
-        return todoJpaRepository.findByUsername(username);
-        // return todoService.findAll();
+        return todoService.findAll();
     }
 
     // DELETE mapping
-    @DeleteMapping("/jpa/users/{username}/todos/{id}")
+    @DeleteMapping("/users/{username}/todos/{id}")
     public ResponseEntity<Void> deleteTodo(@PathVariable String username, @PathVariable long id) {
-        // Todo todo = todoService.deleteById(id);
-        todoJpaRepository.deleteById(id);
-        // if (todo != null) {
-        //     return ResponseEntity.noContent().build();
-        // }
-        return ResponseEntity.noContent().build();
+        Todo todo = todoService.deleteById(id);
+
+        if (todo != null) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
 
     }
 
 
     // GET mapping for a particular id
-    @GetMapping("/jpa/users/{username}/todos/{id}")
+    @GetMapping("/users/{username}/todos/{id}")
     public Todo getTodo(@PathVariable String username, @PathVariable long id) {
-        return todoJpaRepository.findById(id).get();
-        // return todoService.findById(id);
+        return todoService.findById(id);
     }
 
+
     // PUT mapping
-    @PutMapping("/jpa/users/{username}/todos/{id}")
+    @PutMapping("/users/{username}/todos/{id}")
     public ResponseEntity<Todo> updateTodo(@PathVariable String username,
                                            @PathVariable long id, @RequestBody Todo todo) {
-        Todo updatedTodo = todoJpaRepository.save(todo);
+        Todo updatedTodo = todoService.save(todo);
 
         return new ResponseEntity<Todo>(todo, HttpStatus.OK);
     }
 
-    @PostMapping("/jpa/users/{username}/todos")
+    @PostMapping("/users/{username}/todos")
     public ResponseEntity<Void> createTodo(
             @PathVariable String username,
             @RequestBody Todo todo) {
 
-        // Todo createdTodo = todoService.save(todo);
-        Todo todoUpdated = todoJpaRepository.save(todo);
+        Todo createdTodo = todoService.save(todo);
+
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(todoUpdated.getId())
+                .buildAndExpand(createdTodo.getId())
                 .toUri();
 
         return ResponseEntity.created(uri).build();
     }
 
-    @GetMapping("/jpa/hello-world/{name}")
+    @GetMapping("/hello-world/{name}")
     public String helloWorld(@PathVariable String name) {
         return "Hello World v1 from " + name + " from intellij";
     }
