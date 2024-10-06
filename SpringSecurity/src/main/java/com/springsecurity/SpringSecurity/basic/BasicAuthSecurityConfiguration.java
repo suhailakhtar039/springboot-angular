@@ -60,12 +60,14 @@ public class BasicAuthSecurityConfiguration {
     @Bean
     public UserDetailsService userDetailsService(DataSource dataSource) {
         var user = User.withUsername("suhail")
-                .password("{noop}abc")
+                // .password("{noop}abc")
+                .passwordEncoder(str -> passwordEncoder().encode("abc"))
                 .roles("USER")
                 .build();
 
         var admin = User.withUsername("admin")
-                .password("{noop}admin")
+                // .password("{noop}admin")
+                .passwordEncoder(str -> passwordEncoder().encode("admin"))
                 .roles("ADMIN")
                 .build();
 
