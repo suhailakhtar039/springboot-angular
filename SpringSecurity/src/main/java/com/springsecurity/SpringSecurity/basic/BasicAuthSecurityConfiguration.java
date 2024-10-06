@@ -17,7 +17,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import javax.sql.DataSource;
 
-@Configuration
+//@Configuration
 public class BasicAuthSecurityConfiguration {
 
     @Bean
@@ -68,7 +68,7 @@ public class BasicAuthSecurityConfiguration {
         var admin = User.withUsername("admin")
                 // .password("{noop}admin")
                 .passwordEncoder(str -> passwordEncoder().encode("admin"))
-                .roles("ADMIN")
+                .roles("ADMIN", "USER")
                 .build();
 
         JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);
