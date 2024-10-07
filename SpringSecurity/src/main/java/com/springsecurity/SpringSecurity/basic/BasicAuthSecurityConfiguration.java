@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
@@ -17,12 +18,21 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import javax.sql.DataSource;
 
-//@Configuration
+@Configuration
+@EnableMethodSecurity
 public class BasicAuthSecurityConfiguration {
 
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests().anyRequest().authenticated();
+        http.authorizeHttpRequests(
+                auth -> {
+                    auth
+                            .requestMatchers("/users").hasRole("USERS")
+                            .requestMatchers("/admin/**").hasRole("ADMIN")
+                            .anyRequest()
+                            .authenticated();
+                }
+        );
         // http.formLogin();
         http.sessionManagement(
                 session ->
@@ -79,7 +89,7 @@ public class BasicAuthSecurityConfiguration {
     }
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
