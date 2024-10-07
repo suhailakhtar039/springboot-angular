@@ -1,11 +1,13 @@
-package com.springsecurity.SpringSecurity.basic;
+package com.springsecurity.SpringSecurity.jwt;
 
+import com.nimbusds.jose.jwk.RSAKey;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,6 +18,11 @@ import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 import javax.sql.DataSource;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.NoSuchAlgorithmException;
+import java.security.interfaces.RSAPublicKey;
+import java.util.UUID;
 
 @Configuration
 public class JwtAuthSecurityConfiguration {
@@ -29,8 +36,13 @@ public class JwtAuthSecurityConfiguration {
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         );
         http.httpBasic();
+
         http.csrf().disable();
+
         http.headers().frameOptions().sameOrigin();
+
+        http.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
+
         return http.build();
     }
 
@@ -41,21 +53,6 @@ public class JwtAuthSecurityConfiguration {
                 .addScript(JdbcDaoImpl.DEFAULT_USER_SCHEMA_DDL_LOCATION)
                 .build();
     }
-
-    // @Bean
-    // public UserDetailsService userDetailsService() {
-    //     var user = User.withUsername("suhail")
-    //             .password("{noop}abc")
-    //             .roles("USER")
-    //             .build();
-    //
-    //     var admin = User.withUsername("admin")
-    //             .password("{noop}admin")
-    //             .roles("ADMIN")
-    //             .build();
-    //
-    //     return new InMemoryUserDetailsManager(user, admin);
-    // }
 
     @Bean
     public UserDetailsService userDetailsService(DataSource dataSource) {
@@ -79,7 +76,24 @@ public class JwtAuthSecurityConfiguration {
     }
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
+    public KeyPair keyPair() throws NoSuchAlgorithmException {
+        var keyPairGenerator = KeyPairGenerator.getInstance("RSA");
+        return keyPairGenerator.generateKeyPair();
+    }
+
+
+    @Bean
+    public RSAKey rsaKey(KeyPair keyPair) {
+        return new RSAKey
+                .Builder((RSAPublicKey) keyPair.getPublic())
+                .privateKey(keyPair.getPrivate())
+                .keyID(UUID.randomUUID().toString())
+                .build();
+    }
+    
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
