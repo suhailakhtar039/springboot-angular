@@ -19,7 +19,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import javax.sql.DataSource;
 
 @Configuration
-@EnableMethodSecurity
+@EnableMethodSecurity(jsr250Enabled = true)
 public class BasicAuthSecurityConfiguration {
 
     @Bean
